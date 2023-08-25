@@ -1,4 +1,9 @@
-export interface AuthState {
+import { AuthModel } from "./auth.model";
 
-}
- export const initialState: AuthState = {}
+
+
+
+ export const initialState: AuthModel = {
+    error:''
+ }
+

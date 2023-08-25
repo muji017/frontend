@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup,FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+// import { User, UserState } from 'src/app/store/user.state';
+import { signup } from 'src/app/auth/state/auth.action';
+import { UserModel } from 'src/app/store/user.model';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +14,7 @@ export class SignupComponent {
 
   signupform!:FormGroup;
   pagetitle:string="SignUp"
-  constructor(){}
+  constructor(private store:Store<UserModel>){}
 
   
   ngOnInit(): void {
@@ -26,7 +30,7 @@ export class SignupComponent {
       ]),
       password: new FormControl(null, [
         Validators.required,
-        Validators.minLength(10),
+        Validators.minLength(6),
         // Validators.pattern(/^[\w+.-]+@\w+([-.]\w+)*\.\w+([-.]\w+)*$/)
       ]),
     });
@@ -70,7 +74,7 @@ export class SignupComponent {
       }
 
       if (password.errors.minlength) {
-        return 'Password should be of minimum 10 characters length';
+        return 'Password should be of minimum 6 characters length';
       }
       // if (password.errors.pattern){
       //   return 'Week password include number and alphabets'
@@ -79,7 +83,18 @@ export class SignupComponent {
   }
    
    signup(){
-      console.log(this.signupform);
+      
+      if(!this.signupform.valid){
+        return
+      }
+      else{
+        console.log(this.signupform);
+        const name=this.signupform.value.name;
+        const email=this.signupform.value.email;
+        const password= this.signupform.value.password
+
+        this.store.dispatch(signup({name,email,password}))
+      }
       
   }
 }

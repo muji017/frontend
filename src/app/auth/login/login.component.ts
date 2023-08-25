@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
+import { loginStart } from '../state/auth.action';
+// import { Error, UserState } from 'src/app/store/user.state';
+import { UserModel } from 'src/app/store/user.model';
+import { geterror } from '../state/auth.selector';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +14,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
    
+  pageSubscription!:Subscription
   loginform!:FormGroup
-
-  constructor(){
+  errorMsg!:string
+  constructor(private store:Store<UserModel>){
   
   }
   ngOnInit(): void {
@@ -19,6 +25,12 @@ export class LoginComponent implements OnInit {
        email:new FormControl('',[Validators.required,Validators.email]),
        password:new FormControl('',Validators.required)
     })
+      this.pageSubscription=this.store.select(geterror).subscribe(data=>{
+         this.errorMsg=data
+     console.log("inside page")
+ 
+      })
+
   }
   // private err!:string
   emailValid():string|void{
@@ -47,7 +59,11 @@ export class LoginComponent implements OnInit {
       return
      }
      else{
-    console.log(this.loginform)
+        
+      const email=this.loginform.value.email
+      const password=this.loginform.value.password
+
+       this.store.dispatch(loginStart({email,password}))
      }
   }
 }
