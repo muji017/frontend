@@ -14,6 +14,10 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { UserheaderComponent } from './userheader/userheader.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import {  UserGuard } from "../authguard/user.guard";
+import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
+import { AdminheaderComponent } from './admin/adminheader/adminheader.component';
+import { UserlistComponent } from './admin/userlist/userlist.component';
+import { AdminloginComponent } from './admin/adminlogin/adminlogin.component';
 
 const routes:Routes = [
     {
@@ -23,13 +27,17 @@ const routes:Routes = [
             {path: 'login',component:LoginComponent},
             {path:'signup',component:SignupComponent},
             {path:'userhome',component:UserhomeComponent,canActivate:[UserGuard]},
-            {path:'userprofile',component:UserprofileComponent,canActivate:[UserGuard]}
+            {path:'userprofile',component:UserprofileComponent,canActivate:[UserGuard]},
+            {path:'admin',component:AdminloginComponent},
+            {path:'adminhome',component:AdminhomeComponent},
+            {path:'userlist',component:UserlistComponent}
+            
         ]
     }
 ]
 
 @NgModule({
-    declarations:[LoginComponent,SignupComponent, UserhomeComponent, UserheaderComponent, UserprofileComponent],
+    declarations:[LoginComponent,SignupComponent, UserhomeComponent, UserheaderComponent, UserprofileComponent, AdminhomeComponent, AdminheaderComponent, UserlistComponent, AdminloginComponent],
     imports:[
         CommonModule,
         MaterialModule,

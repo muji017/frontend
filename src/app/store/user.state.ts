@@ -9,5 +9,8 @@ import { UserModel } from "./user.model";
      email: '',
      password: "",
      userToken: "",
-     image:""
+     image:"",
+     _id:""
  }
+
+ export const alluserState: UserModel[] = []

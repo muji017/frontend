@@ -1,5 +1,6 @@
 export interface UserModel{
-    userToken: string
+    userToken: string,
+    _id:any,
     userId?:any,
     name:string,
     email:string,
@@ -10,3 +11,7 @@ export interface UserModel{
 export interface loginError{
     errormsg:string
 }
+
+export interface UserState {
+    userdetails:UserModel[]
+} 

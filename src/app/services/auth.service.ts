@@ -33,6 +33,15 @@ export class AuthService {
   imageUpload(file: object, id: string | null) {
     return this.http.post(`${this.apiUrl}/image?id=${id}`, file)
   }
+
+  getAllUsers():Observable<UserModel[]>{
+    return this.http.get<UserModel[]>(`${this.apiUrl}/getAllUsers`)
+  }
+
+  deleteUser(userId:any){
+    console.log(userId)
+    return this.http.post(`${this.apiUrl}/deleteUser`,{userId})
+  }
   
 }
 

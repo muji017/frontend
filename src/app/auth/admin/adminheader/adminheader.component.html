@@ -1,0 +1,10 @@
+<mat-toolbar class="mat-elevation-z8">
+    <span>Admin</span> 
+    <button mat-button [routerLink]="['/auth/adminhome']">Dashboad</button>
+    <button mat-button [routerLink]="['/auth/userlist']">Userlist</button>
+    <span style="margin-left: auto;">
+        <button mat-button (click)="onLogout()">Logout</button>
+    </span>
+    
+
+</mat-toolbar>

@@ -16,8 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { AuthReducer } from './auth/state/auth.reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { UserEffects } from './store/user.effects';
-import { UserStateName } from './store/user.selector';
-import { UserReducer } from './store/user.reducer';
+import { UserStateName, allUserStateName } from './store/user.selector';
+import { UserReducer, allUserReducer } from './store/user.reducer';
 
 
 @NgModule({
@@ -39,7 +39,8 @@ import { UserReducer } from './store/user.reducer';
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forFeature([UserEffects]),
-    StoreModule.forFeature(UserStateName,UserReducer),
+    StoreModule.forFeature(UserStateName,UserReducer,),
+    StoreModule.forFeature(allUserStateName,allUserReducer)
   ],
   providers: [],
   bootstrap: [AppComponent]
