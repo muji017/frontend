@@ -1,11 +1,24 @@
 <app-userheader></app-userheader>
 <div style="text-align: center; margin-top: 20px;" class="profile-container">
   <div class="profile-header">
-    <h2>{{ name }}</h2>
-    <p>{{ email }}</p>
+    <h2>{{ user.name }}</h2>
+    <p>{{ user.email }}</p>
   </div>
-  <div class="profile-avatar">
-    <img [src]="" alt="User Avatar" />
+  <div >
+    <img [src]="'http://localhost:4000/images/' + user.image" alt="User Avatar" width="120px" height="120px" *ngIf="isImage" >
+
+    <img id="profileImage" width="80px" height="80px"
+    src="https://static.vecteezy.com/system/resources/previews/020/213/738/original/add-profile-picture-icon-upload-photo-of-social-media-user-vector.jpg"
+    class="w-full h-full rounded-full" *ngIf="!isImage"   >
+  
+  <br> 
+  <div >
+    <label *ngIf="isImage"><strong>Change Profile Picture:</strong></label>
+    <label *ngIf="!isImage"><strong>Add Profile Picture:</strong></label>
+    <input type="file" (change)="onFileSelected($event)" >
   </div>
+ 
+  </div>
+ 
 </div>
 <div></div>

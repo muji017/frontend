@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { getUserApi, getUserApiSuccess } from 'src/app/store/user.action';
 import { UserModel } from 'src/app/store/user.model';
 import { getuser } from 'src/app/store/user.selector';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -13,17 +14,34 @@ import { getuser } from 'src/app/store/user.selector';
 export class UserprofileComponent {
 
   pageSubscription!:Subscription
-   name:string='Mujeeb'
-   email:string='muji@gmail.com'
+   name:string='M'
+   email:string='muji@'
    user!:UserModel
-   constructor(private store:Store<UserModel>){}
+   image$!: string | undefined;
+   isImage:boolean=false
+   constructor(private store:Store<UserModel>, private AuthService:AuthService){}
 
    ngOnInit(){
 
-    this.store.dispatch(getUserApi({userId:"64e61ea9e48e74aa1009b9dc"}))
-  //   this.pageSubscription=this.store.select(getUserApiSuccess).subscribe(data=>{
-  //     this.user=data
-  //  }
-  //  )
+    const userId:any=localStorage.getItem('userId')
+    this.store.dispatch(getUserApi({userId:userId}))
+    this.pageSubscription=this.store.select(getuser).subscribe(data=>{
+      this.user=data
+      console.log("in cxomponet",data)
+      this.image$=data.image
+      if(this.image$){
+        this.isImage = true
+      }
+   })
    }
+
+   onFileSelected(event: any) {
+    const file = <File>event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file, file.name);
+    const userId = localStorage.getItem('userId')
+    this.AuthService.imageUpload(formData, userId).subscribe(() => {
+      this.ngOnInit()
+    })
+  }
 }

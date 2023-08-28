@@ -3,7 +3,7 @@
     <button mat-button [routerLink]="['/auth/userhome']">Home</button>
     <button mat-button [routerLink]="['/auth/userprofile']">Profile</button>
     <span style="margin-left: auto;">
-        <button mat-button routerLink="">Logout</button>
+        <button mat-button (click)="onLogout()">Logout</button>
     </span>
     
 

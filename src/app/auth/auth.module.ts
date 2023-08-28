@@ -13,6 +13,7 @@ import { SignupComponent } from "./signup/signup.component";
 import { UserhomeComponent } from './userhome/userhome.component';
 import { UserheaderComponent } from './userheader/userheader.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import {  UserGuard } from "../authguard/user.guard";
 
 const routes:Routes = [
     {
@@ -21,8 +22,8 @@ const routes:Routes = [
             {path: '', redirectTo :'login',pathMatch: 'full'},
             {path: 'login',component:LoginComponent},
             {path:'signup',component:SignupComponent},
-            {path:'userhome',component:UserhomeComponent},
-            {path:'userprofile',component:UserprofileComponent}
+            {path:'userhome',component:UserhomeComponent,canActivate:[UserGuard]},
+            {path:'userprofile',component:UserprofileComponent,canActivate:[UserGuard]}
         ]
     }
 ]

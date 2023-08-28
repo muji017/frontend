@@ -11,7 +11,8 @@ const _userReducer = createReducer(
       return {
         ...state,
         name: action.User.name,
-        email:action.User.email
+        email:action.User.email,
+        image:action.User.image
       };
     }),
 )

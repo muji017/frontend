@@ -20,7 +20,9 @@ export class AuthEffects {
       exhaustMap((action) => {
         return this.service.login(action.email, action.password).pipe(
           map((data) => {
-            console.log(data.userId);
+            console.log(data);
+            localStorage.setItem('userToken', data.userToken);
+            localStorage.setItem('userId', data.userId)
             return loginSuccess({ data });
           }),
           catchError((error) => {

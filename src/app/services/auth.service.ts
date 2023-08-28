@@ -29,6 +29,10 @@ export class AuthService {
     console.log('getuser service')
     return this.http.post<UserModel>(`${this.apiUrl}/getUserDetails`,{userId})
   }
+
+  imageUpload(file: object, id: string | null) {
+    return this.http.post(`${this.apiUrl}/image?id=${id}`, file)
+  }
   
 }
 
