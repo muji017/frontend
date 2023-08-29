@@ -18,6 +18,7 @@ import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { AdminheaderComponent } from './admin/adminheader/adminheader.component';
 import { UserlistComponent } from './admin/userlist/userlist.component';
 import { AdminloginComponent } from './admin/adminlogin/adminlogin.component';
+import { AdminGuard } from "../authguard/admin.guard";
 
 const routes:Routes = [
     {
@@ -29,8 +30,8 @@ const routes:Routes = [
             {path:'userhome',component:UserhomeComponent,canActivate:[UserGuard]},
             {path:'userprofile',component:UserprofileComponent,canActivate:[UserGuard]},
             {path:'admin',component:AdminloginComponent},
-            {path:'adminhome',component:AdminhomeComponent},
-            {path:'userlist',component:UserlistComponent}
+            {path:'adminhome',component:AdminhomeComponent,canActivate:[AdminGuard]},
+            {path:'userlist',component:UserlistComponent,canActivate:[AdminGuard]}
             
         ]
     }

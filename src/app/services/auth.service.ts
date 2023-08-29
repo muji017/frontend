@@ -42,6 +42,14 @@ export class AuthService {
     console.log(userId)
     return this.http.post(`${this.apiUrl}/deleteUser`,{userId})
   }
+
+  // admin login
+
+  adminlogin(email:string,password:string):Observable<UserModel>{
+    console.log(email,password);
+    
+    return this.http.post<UserModel>(`${this.apiUrl}/adminlogin`,{email,password})
+  }
   
 }
 

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './auth.state';
-import { loginFail, loginSuccess } from './auth.action';
+import { adminloginSuccess, loginFail, loginSuccess } from './auth.action';
 
 const _authReducer = createReducer(
     initialState,
@@ -27,7 +27,15 @@ const _authReducer = createReducer(
         error: action.error.error.passError
       };
     }
-    })
+    }),
+    on(adminloginSuccess, (state:any, action:any) => {
+      console.log("id in reducer",action.data.userId);
+      
+    return {
+      ...state,
+      data: action.data,
+    };
+  }),
 )
 
 export function AuthReducer(state:any, action:any){

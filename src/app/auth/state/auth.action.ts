@@ -15,3 +15,16 @@ export const loginFail =createAction("loginFail",props<{error:Error}>());
 
 
 export const setErrorMessage = createAction("setErrorMessage",props<{ message: string }>());
+
+
+// admin
+
+
+export const adminloginStart = createAction("adminloginStart",props<{email:string,password:string}>())
+
+export const adminsignup = createAction("signup",props<{name:string,email:string,password:string}>())
+
+export const adminsignupSuccess = createAction("loginSuccess",props<{data:UserModel}>());
+
+
+export const adminloginSuccess = createAction("loginSuccess",props<{data:UserModel}>());

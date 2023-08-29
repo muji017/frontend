@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthService } from "src/app/services/auth.service";
-import { loginFail, loginStart, loginSuccess, signup, signupSuccess } from "./auth.action";
-import { catchError, exhaustMap, map, of, tap } from "rxjs";
+import { adminloginStart, adminloginSuccess, loginFail, loginStart, loginSuccess, signup, signupSuccess } from "./auth.action";
+import { catchError, exhaustMap, map, of, pipe, tap } from "rxjs";
 // import { AuthUser, Error } from "src/app/store/user.state";
 import { Router } from "@angular/router";
 
@@ -71,4 +71,37 @@ export class AuthEffects {
   },
     { dispatch: false }
   )
+
+  // admin 
+
+  adminlogin$=createEffect(()=>{
+    return this.actions$.pipe(
+      ofType(adminloginStart),
+      exhaustMap((action)=>{
+        return this.service.adminlogin(action.email,action.password).pipe(
+           map((data)=>{
+            
+            localStorage.setItem('adminToken', data.userToken);
+            localStorage.setItem('adminId', data.userId)
+            return adminloginSuccess({data})
+           }),
+           catchError((error)=>{
+             return  of(loginFail({ error }));
+           })
+        )
+      })
+    )
+  })
+
+  adminloginredirect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(adminloginSuccess),
+      tap((action) => {
+        this.router.navigate(['/auth/adminhome'])
+      })
+    )
+  },
+    { dispatch: false }
+  )
+
 }
