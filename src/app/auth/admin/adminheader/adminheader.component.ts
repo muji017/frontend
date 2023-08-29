@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adminheader',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AdminheaderComponent {
 
-  onLogout(){}
+  constructor(private router:Router){}
+
+  onLogout(){
+    localStorage.removeItem('adminToken')
+    localStorage.removeItem('adminId')
+    this.router.navigate(['/auth/admin'])
+
+  }
 }
